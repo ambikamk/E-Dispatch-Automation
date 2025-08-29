@@ -43,7 +43,7 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -241,4 +241,30 @@ app_license = "mit"
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
+
+# /home/user/v15/apps/e_dispatch_automation/e_dispatch_automation/events/production_log.py
+doc_events = {
+    "Production Log": {
+        "after_insert": "e_dispatch_automation.events.production_log.update_scanned_qty"
+    },
+    "Stock Entry": {
+        "on_submit": "e_dispatch_automation.events.stock_entry.update_work_order_on_submit"
+    }
+}
+
+# /home/user/v15/apps/e_dispatch_automation/e_dispatch_automation/events/production_log.py
+doctype_js = {
+    "Work Order": "public/js/work_order.js"
+}
+
+fixtures = [
+    {"dt":"Custom Field",
+        "filters":[
+        ["dt","in",(
+            "Work Order","Item"
+
+        )]
+    ]
+    },
+]
 
