@@ -7,8 +7,10 @@
  "field_order": [
   "section_break_qbkl",
   "work_order",
+  "supplier",
   "production_log_items",
-  "amended_from"
+  "amended_from",
+  "service_item"
  ],
  "fields": [
   {
@@ -36,13 +38,25 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "service_item",
+   "fieldtype": "Table",
+   "label": "Service Item",
+   "options": "Service Item"
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-27 16:51:07.022381",
+ "modified": "2025-09-03 10:07:08.445308",
  "modified_by": "Administrator",
  "module": "e_dispatch_automation",
  "name": "Production Log",

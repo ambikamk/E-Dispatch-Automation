@@ -1,7 +1,9 @@
 frappe.ui.form.on('Work Order', {
     refresh: function(frm) {
         if (!frm.is_new()) {
-
+            if (!frm.doc.custom_qr_code_based_production) {
+                return;
+            }
             frm.remove_custom_button(__('Start'));
             frm.remove_custom_button(__('Finish'));
             if (frm.doc.custom_production_completed) {

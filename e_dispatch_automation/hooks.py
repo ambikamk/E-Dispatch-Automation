@@ -249,19 +249,30 @@ doc_events = {
     },
     "Stock Entry": {
         "on_submit": "e_dispatch_automation.events.stock_entry.update_work_order_on_submit"
+    },
+    # "Delivery Note": {
+    #     "on_submit": "e_dispatch_automation.events.delivery_note.delete_qr_on_delivery_submit"
+    # },
+    "Delivery Note": {
+        "before_insert": "e_dispatch_automation.events.delivery_note.set_item_no_from_picklist",
+        "on_submit":"e_dispatch_automation.events.delivery_note.delete_qr_codes_on_submit"
     }
 }
 
+
+
+
 # /home/user/v15/apps/e_dispatch_automation/e_dispatch_automation/events/production_log.py
 doctype_js = {
-    "Work Order": "public/js/work_order.js"
+    "Work Order": "public/js/work_order.js",
+    "Pick List":"public/js/pick_list.js"
 }
 
 fixtures = [
     {"dt":"Custom Field",
         "filters":[
         ["dt","in",(
-            "Work Order","Item"
+            "Work Order","Item","Batch","Supplier"
 
         )]
     ]

@@ -22,7 +22,8 @@ def make_qr_codes(work_order):
             "batch_no": batch.name,
             "box_no": qr_code_id,
             "qty": qty_per_box,
-            "user": frappe.session.user
+            "user": frappe.session.user,
+            "fg_warehouse":wo.fg_warehouse
         }
         qr = qrcode.QRCode(
             version=1,
@@ -46,7 +47,8 @@ def make_qr_codes(work_order):
             "qr_code_id": qr_code_id,
             "qty": qty_per_box,
             "user": frappe.session.user,
-            "content": img_data
+            "content": img_data,
+            "fg_warehouse":wo.fg_warehouse
         })
     batch.save(ignore_permissions=True)
 
@@ -110,7 +112,7 @@ def complete_production(bom, work_order, scanned_qty, target_warehouse, work_in_
                 "s_warehouse": work_in_progress_warehouse,
                 "t_warehouse": "",
             })
-
+        batch = frappe.get_doc("Batch",work_order)
         bom_main_item, main_item_uom = frappe.get_value("BOM", bom, ['item', 'uom'])
         stock_entry.append("items", {
             "item_code": bom_main_item,
@@ -118,7 +120,9 @@ def complete_production(bom, work_order, scanned_qty, target_warehouse, work_in_
             "uom": main_item_uom,
             "s_warehouse": "",
             "t_warehouse": target_warehouse,
-            "is_finished_item": 1
+            "is_finished_item": 1,
+            "use_serial_batch_fields":1,
+            "batch_no":batch.name
         })
         # bom_doc = frappe.get_doc("BOM",bom)
         # if bom_doc.scrap_items:
@@ -144,6 +148,8 @@ def complete_production(bom, work_order, scanned_qty, target_warehouse, work_in_
         batch = frappe.get_doc("Batch",work_order)
         for row in batch.custom_qr_code:
             row.warehouse = target_warehouse
+        batch.disabled = 0
+        batch.batch_qty = flt(scanned_qty)
         batch.save(ignore_permissions=True)
         return {
             "status": "success",
