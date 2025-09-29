@@ -4,7 +4,11 @@ from frappe.model.document import Document
 class ProductionLog(Document):
     def validate(self):
         self.append_freelance_rates()
-
+    def after_insert(self):
+        if not self.work_order:
+            return
+        current_qty = frappe.db.get_value("Work Order", self.work_order, "custom_scanned_qty") or 0
+        frappe.db.set_value("Work Order", self.work_order, "custom_scanned_qty", current_qty + 1)
     def append_freelance_rates(self):
         if not self.production_log_items:
             return
@@ -44,6 +48,7 @@ class ProductionLog(Document):
                         "rate":rate.service_charge,
                         "amount": rate.total_service_charge
                     })
+
 @frappe.whitelist()
 def user_has_supplier_role(user):
     """Return True if user has Supplier role, else False."""

@@ -244,9 +244,6 @@ app_license = "mit"
 
 # /home/user/v15/apps/e_dispatch_automation/e_dispatch_automation/events/production_log.py
 doc_events = {
-    "Production Log": {
-        "after_insert": "e_dispatch_automation.events.production_log.update_scanned_qty"
-    },
     "Stock Entry": {
         "on_submit": "e_dispatch_automation.events.stock_entry.update_work_order_on_submit"
     },

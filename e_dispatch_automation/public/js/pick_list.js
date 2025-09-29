@@ -132,6 +132,9 @@ async function initScanner(d, frm) {
                     window.scanner = null;
                 }
                 d.hide();
+                 setTimeout(() => {
+                window.location.reload();
+            }, 500);
             };
 
             processRows();

@@ -12,7 +12,8 @@
   "qty",
   "user",
   "content",
-  "has_picked"
+  "has_picked",
+  "barcode_content"
  ],
  "fields": [
   {
@@ -58,13 +59,18 @@
    "fieldname": "has_picked",
    "fieldtype": "Check",
    "label": "Has Picked"
+  },
+  {
+   "fieldname": "barcode_content",
+   "fieldtype": "Code",
+   "label": "Barcode Content"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-08-27 12:16:34.056016",
+ "modified": "2025-09-12 09:42:45.636610",
  "modified_by": "Administrator",
  "module": "e_dispatch_automation",
  "name": "Production Log Item",
